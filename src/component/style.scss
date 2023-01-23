@@ -1,0 +1,108 @@
+html {
+    box-sizing: border-box;
+    font-size: 100%;
+  }
+  
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+  body {
+    background-color: #ffffff;
+    color: #101010;
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    background: #F6F8FF;
+  }
+  
+  section {
+    // padding: 5px;
+    // border-radius: 12px;
+    width: 100%;
+    height:100vh;
+  }
+  
+  $medBlue: #2245ad;
+  $magenta: #b8246b;
+  $green: #0fa03f;
+  
+  @mixin bgGradient($color){
+    background-image: linear-gradient(lighten($color, 12%) 0%, $color 70%);  
+  }
+  
+  .blue {
+    background-color: $medBlue;
+    @include bgGradient($medBlue);  
+  }
+  
+  .magenta {
+    background-color: $magenta;
+    @include bgGradient($magenta);
+  }
+  
+  .green {
+    background-color: $green;
+    @include bgGradient($green);
+  }
+  
+  h1 { 
+    font-size: 4rem; 
+  }
+  
+  h2 { 
+    font-size: 3rem; 
+  }
+  
+  h1, h2, h3 {
+    margin-top: 0px;
+  }
+  
+  .flex-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+  
+
+.flex-child {
+    flex: 1;
+    border-left: 2px solid rgb(12, 1, 8);
+}
+
+.flex-child:first-child {
+    margin-right: 10px;
+}
+ 
+.align-text-left {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  padding-left: 10px;
+}
+
+input[type="submit"]{
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 0.25em;
+  margin-top: 2em;
+  padding: 	0.938em;
+  border: none;
+  background-color: #22223B;
+  color: #fefefe;
+  width: auto;
+  
+}
+
+input[type="submit"]:hover{
+  button:hover {
+    background-color: #4A4E69;
+    color: #fefefe;
+  }
+}
+
+.submit {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
