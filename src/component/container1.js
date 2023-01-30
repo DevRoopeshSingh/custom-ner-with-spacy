@@ -34,11 +34,11 @@ function Container1() {
               <input type="file" onChange={handleChange} />
             </div>
               {pdfUrl && 
-               <embed src={pdfUrl} type="application/pdf" width="100%" height="800px" />
-              // <PdfRenderer src={pdfUrl} />
+              //  <embed src={pdfUrl} type="application/pdf" width="100%" height="800px" />
+               <PdfRenderer src={pdfUrl} />
               }
               {pdf && <p>{pdf.name}</p>}
-              {file && <img src={URL.createObjectURL(file)} width="100%" height="800px"/>}
+              {file && <img src={URL.createObjectURL(file)} width="100%" height="800px" alt="Not able to load"/>}
               {file && <p>{file.name}</p>}
             
           </div>

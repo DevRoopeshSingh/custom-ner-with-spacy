@@ -13,17 +13,8 @@ function App() {
   }, []);
 
   return (
-    // <React.Fragment>
-    //   <MainPage />
-    // </React.Fragment>
-    // <MainPage />
+
     <div className="App">
-      {/* <header className="App-header">
-
-        ... no changes in this part ...
-
-        <p>The current time is {currentTime}.</p>
-      </header> */}
       <MainPage /> 
     </div>
   );
