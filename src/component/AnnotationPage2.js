@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 
-// const radioButtonOption =  [
+// const radioButtonOptions =  [
 //   {
 //     id:1,
 //     type:'checkbox',
@@ -45,45 +45,46 @@ import React,{useState,useEffect} from 'react'
 //   }
 // ]
 
-const otherOption =  [
-  {
-    id:9,
-    type:'checkbox',
-    value:'option8',
-    text:'Check if poor quality OCR'
-  }
-]
+// const otherOption =  [
+//   {
+//     id:9,
+//     type:'checkbox',
+//     value:'option8',
+//     text:'Check if poor quality OCR'
+//   }
+// ]
 
 const Container2 = () => {
 
   const [selectedOption, setSelectedOption ] =  useState('');
   const [textAreaValue,setTextAreaValue] =  useState("");
-  const [otherOptionChecked, setOtherOptionChecked] = useState(false);
-  const [radioButtonOption,setRadioButtonOption] =  useState([]);
+  const [otherOptionValue, setOtherOptionValue] = useState('');
+  const [radioButtonOptions,setRadioButtonOptions] =  useState([]);
   const [otherButtonOptions,setOtherButtonOptions] =  useState([]);
   const [isShowTextField,setIsShowTextField] =  useState(false);
   
   function funcFormObject(ele,index){
-    return { id:index,
+    return { 
+      id:index,
       type:'checkbox',
-      value:'option'+index,
+      value:ele,
       text:ele
     }
   }
 
   useEffect(() => {
-    fetch('/fetchTag').then(res => res.json()).then(data => {
+    fetch('/api/v1/fetchTag').then(res => res.json()).then(data => {
       const allData =  data.fields;
 
       allData.forEach((element) => {
 
           if(element['report_type']){
-           const categoricalData =  element['report_type']['categorical'] ? element['report_type']['categorical'].pop(): element['report_type']['categorical']
+           const categoricalData =  element['report_type']['categorical'] ? element['report_type']['categorical']: element['report_type']['categorical']
            const formattedData =  categoricalData.map((ele,index)=>funcFormObject(ele,index)) 
-           setRadioButtonOption(formattedData);
+           setRadioButtonOptions(formattedData);
           }
           else if(element['whether']){
-           const categoricalData = element['whether']['categorical'] ?  element['whether']['categorical'].pop(): element['whether']['categorical'];
+           const categoricalData = element['whether']['categorical'] ?  element['whether']['categorical']: element['whether']['categorical'];
            const formattedData =  categoricalData.map((ele,index)=>funcFormObject(ele,index)); 
            setOtherButtonOptions(formattedData);
           }else if(element['configuration']){
@@ -100,14 +101,14 @@ const Container2 = () => {
   function handleSubmit(event){
     event.preventDefault();
 
-    console.log(`selectedOption : ${selectedOption}
-                textAreaValue:${textAreaValue}
-                otherOptionChecked:${otherOptionChecked}`
-               )
+    console.log(`selectedOption : ${selectedOption} textAreaValue:${textAreaValue} otherOptionValue:${otherOptionValue}`)
+
     const jsonData = {
         report_date: new Date(),
         md_name:"Tester",
-        categorical: radioButtonOption ? radioButtonOption.filter((ele)=>ele.value === selectedOption).pop().text:null
+        categorical: radioButtonOptions ? radioButtonOptions.filter((ele)=>ele.value === selectedOption).pop().text:null,
+        comment:textAreaValue,
+        otherOptionValue
       }
       
     const requestOption = {
@@ -116,9 +117,16 @@ const Container2 = () => {
       body:JSON.stringify(jsonData)
     } 
     
-    fetch('/addNewTag',requestOption)
+    fetch('/api/v1/addNewTag',requestOption)
     .then(res=>res.json())
-    .then(data=>console.log('Post Id',data.id));
+    .then(data=> {
+      if(data.status === 'Success'){
+        alert(data.message);
+      }
+      window.location.reload(false);
+    }).catch((error)=> {
+      console.log(error);
+    });
 
   }
 
@@ -127,8 +135,7 @@ const Container2 = () => {
         <section className="flex-child align-text-left">
           <h3>This Page is an example of a</h3>
         <form onSubmit={handleSubmit}>
-          {
-           radioButtonOption.map((ele,idx) => {
+          {radioButtonOptions.map((ele,idx) => {
              return <div className='checkbox-container' key={idx}>
                  <label >
                   <input
@@ -156,8 +163,10 @@ const Container2 = () => {
                     <input
                       type={ele.type}
                       key={ele.id}
-                      defaultChecked={otherOptionChecked}
-                      onChange={() => setOtherOptionChecked(!otherOptionChecked)}
+                      defaultChecked={otherOptionValue}
+                      value={ele.value}
+                      checked={otherOptionValue === ele.value}
+                      onChange={(event) => setOtherOptionValue(otherOptionValue !== event.target.value ? event.target.value:'')}
                     />
                   {ele.text}
                   </label> 

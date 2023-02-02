@@ -6,7 +6,7 @@ function App() {
   const [currentTime, setCurrentTime] = useState(0);
 
   useEffect(() => {
-    fetch('/time').then(res => res.json()).then(data => {
+    fetch('/api/v1/time').then(res => res.json()).then(data => {
       console.log('Logging time',data.time)
       setCurrentTime(data.time);
     });
@@ -15,7 +15,7 @@ function App() {
   return (
 
     <div className="App">
-      <MainPage /> 
+      <MainPage currentTimeProp={currentTime} /> 
     </div>
   );
 }
