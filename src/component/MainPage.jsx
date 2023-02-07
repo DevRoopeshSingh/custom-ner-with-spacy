@@ -1,6 +1,6 @@
 import React from 'react'
-import AnnotationPage1 from './AnnotationPage1';
-import AnnotationPage2 from './AnnotationPage2';
+import CustomFileInputComponent from './CustomFileInputComponent';
+import AnnotationPage from './AnnotationPage';
 import './style.scss'
 
 const MainPage = () => {
@@ -8,8 +8,8 @@ const MainPage = () => {
       <React.Fragment>
           <section>
             <div className='flex-container'>
-                    <AnnotationPage1 />
-                    <AnnotationPage2 />
+                    <CustomFileInputComponent />
+                    <AnnotationPage />
             </div>
           </section>
       </React.Fragment>

@@ -1,60 +1,7 @@
 import React,{useState,useEffect} from 'react'
 
-// const radioButtonOptions =  [
-//   {
-//     id:1,
-//     type:'checkbox',
-//     value:'option1',
-//     text:'Progress Note  changed'
-//   },
-//   {
-//     id:2,
-//     type:'checkbox',
-//     value:'option2',
-//     text:'Lab report'
-//   },
-//   {
-//     id:3,
-//     type:'checkbox',
-//     value:'option3',
-//     text:'Pathology report'
-//   },
-//   {
-//     id:4,
-//     type:'checkbox',
-//     value:'option4',
-//     text:'Imaging report'
-//   },
-//   {
-//     id:5,
-//     type:'checkbox',
-//     value:'option5',
-//     text:'Chemo order'
-//   },
-//   {
-//     id:6,
-//     type:'checkbox',
-//     value:'option6',
-//     text:'Other'
-//   },
-//   {
-//     id:7,
-//     type:'checkbox',
-//     value:'option7',
-//     text:"I can`t tell"
-//   }
-// ]
 
-// const otherOption =  [
-//   {
-//     id:9,
-//     type:'checkbox',
-//     value:'option8',
-//     text:'Check if poor quality OCR'
-//   }
-// ]
-
-const Container2 = () => {
+const AnnotationPage = () => {
 
   const [selectedOption, setSelectedOption ] =  useState('');
   const [textAreaValue,setTextAreaValue] =  useState("");
@@ -152,10 +99,10 @@ const Container2 = () => {
             })
           }
           {isShowTextField &&
-            <div>
+            <>
               <h4>Comments:</h4>
               <textarea value={textAreaValue} style={{width:"400px", height:"150px"}} onChange={(e)=>setTextAreaValue(e.target.value)} />
-            </div>
+            </>
           }
             {otherButtonOptions.map((ele,idx) => {
              return <div className='checkbox-container' key={idx} >
@@ -180,4 +127,4 @@ const Container2 = () => {
   )
 }
 
-export default Container2
+export default AnnotationPage

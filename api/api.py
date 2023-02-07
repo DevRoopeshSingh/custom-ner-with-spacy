@@ -25,7 +25,6 @@ CORS(app, resources={
 API_NAME = Api(app)
 
 
-
 @app.route('/api/v1/time')
 def get_current_time():
     return {'time': time.time()}  
@@ -63,24 +62,24 @@ def getTagName():
         print(result)
 
         print(len(result))
-        result1 =[]
-        result2 = []
+        categoricalOptionsData =[]
+        OthersDataOptions = []
 
         for i in range(len(result)):
             if result[i][1]!="other":
-                result1.append(result[i][0])
+                categoricalOptionsData.append(result[i][0])
             else:
-                result2.append(result[i][0])
+                OthersDataOptions.append(result[i][0])
 
         return {
             "fields":[
                 {
                     "report_type":{
-                        "categorical":result1
+                        "categorical":categoricalOptionsData
                     }
                 },{
                     "whether":{
-                        "categorical":result2                    
+                        "categorical":OthersDataOptions                    
                     }
                 },{
                     "configuration":{
